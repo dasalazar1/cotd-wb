@@ -331,10 +331,10 @@ header.top h3:after {
   max-width: 1500px;
   margin: 0 auto;
   margin-top: 5vh;
-  -webkit-perspective: 1000px;
+  /* -webkit-perspective: 1000px;
           perspective: 1000px;
   -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
+          transform-style: preserve-3d; */
 }
 .catch-of-the-day > * {
   -webkit-box-flex: 1;
