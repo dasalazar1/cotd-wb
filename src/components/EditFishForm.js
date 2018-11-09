@@ -7,8 +7,9 @@ class EditFishForm extends React.Component {
     // create a copy
     const updatedFish = {
       ...this.props.fish,
-      [this.currentTarget.name]: this.currentTarget.value
+      [event.currentTarget.name]: event.currentTarget.value
     };
+    this.props.updateFish(this.props.index, updatedFish);
     // event.currentTarget.Name is the name field in the inputs
   };
   render() {
@@ -47,7 +48,9 @@ class EditFishForm extends React.Component {
             onChange={this.handleChange}
             value={this.props.fish.image}
           />
-          <button type="submit">+ Add Fish</button>
+          <button onClick={() => this.props.deleteFish(this.props.index)}>
+            Remove Fish
+          </button>
         </div>
       </React.Fragment>
     );

@@ -1,18 +1,22 @@
 import React from 'react';
 import { formatPrice } from '../helpers';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 class Order extends React.Component {
   renderOrder = key => {
     const fish = this.props.fishes[key];
     const count = this.props.order[key];
-    const isAvailable = fish.status === 'available';
+    const isAvailable = fish && fish.status === 'available';
     if (!isAvailable) {
       return <li key={key}>Sorry {fish ? fish.name : 'fish'} is no longer available</li>;
     }
     return (
-      <li key={key}>
-        {count} lbs {fish.name} {formatPrice(count * fish.price)}
-      </li>
+      <CSSTransition classNames="order" key={key} timeout={{ enter: 5000, exit: 5000 }}>
+        <li key={key}>
+          {count} lbs {fish.name} {formatPrice(count * fish.price)}
+          <button onClick={() => this.props.removeFromOrder(key)}>&times;</button>
+        </li>
+      </CSSTransition>
     );
   };
   render() {
@@ -29,7 +33,9 @@ class Order extends React.Component {
     return (
       <header className="order-wrap">
         <h2>Order</h2>
-        <ul className="order">{orderIds.map(this.renderOrder)}</ul>
+        <TransitionGroup component="ul" className="order">
+          {orderIds.map(this.renderOrder)}
+        </TransitionGroup>
         <div className="total">
           <strong>{formatPrice(total)}</strong>
         </div>
